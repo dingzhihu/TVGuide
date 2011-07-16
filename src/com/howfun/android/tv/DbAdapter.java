@@ -1,5 +1,8 @@
 package com.howfun.android.tv;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -88,6 +91,24 @@ public class DbAdapter {
 			cur.moveToFirst();
 		}
 		return cur;
+	}
+	
+	public List<Area> getAreaList(){
+		List<Area> areaList = new ArrayList<Area>();
+		Cursor c = getAllAreas();
+		if(c != null && c.getCount() > 0){
+			do{
+				int id = c.getInt(c.getColumnIndex(KEY_AREA_ID));
+				String areaName = c.getString(c.getColumnIndex(KEY_AREA_NAME));
+				String areaZone = c.getString(c.getColumnIndex(KEY_AREA_ZONE));
+				Area area = new Area(id, areaName, areaZone);
+				areaList.add(area);
+			}while(c.moveToNext());
+		}
+		if(c != null){
+			c.close();
+		}
+		return areaList;
 	}
 
 	public Cursor getAllPrefChannels() {

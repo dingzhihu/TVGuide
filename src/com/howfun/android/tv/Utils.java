@@ -7,7 +7,11 @@ import android.util.Log;
 public class Utils {
 
 	public static final String TV_GUIDE = "TVGuide";
-	
+
+	public static final String AREA_ID = "areaId";
+	public static final String STATION_ID = "stationId";
+	public static final String CHANNEL_ID = "channelId";
+
 	public static final String AM = "AM";
 	public static final String PM = "PM";
 	public static final String NAN = "NAN";

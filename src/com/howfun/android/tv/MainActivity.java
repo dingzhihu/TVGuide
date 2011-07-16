@@ -1,31 +1,22 @@
 package com.howfun.android.tv;
 
 
-import android.app.Activity;
+import android.app.TabActivity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.widget.TabHost;
 
-public class MainActivity extends Activity {
+public class MainActivity extends TabActivity {
 
-
-	private Button okButton;
-
-	/** Called when the activity is first created. */
-	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
-		okButton = (Button) findViewById(R.id.btn);  
+		final TabHost tabHost = getTabHost();
+		tabHost.addTab(tabHost.newTabSpec("tab1")
+                .setIndicator("list").setContent(new Intent(this,PreferenceActivity.class)));
 
-		  okButton.setOnClickListener(new Button.OnClickListener() {  
-		      public void onClick(View v) {  
-//		         showWeather();  
-		    	  Utils.showMessageDlg(MainActivity.this, new WebserviceAdapter().getProgramList(23, "").toString());
-		      }  
-		  });  
+        tabHost.addTab(tabHost.newTabSpec("tab2")
+                .setIndicator("photo list").setContent(new Intent(this, AreaActivity.class))
+                );
 	}
 
-
-	
 }
