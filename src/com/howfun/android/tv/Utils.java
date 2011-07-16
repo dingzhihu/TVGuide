@@ -7,6 +7,10 @@ import android.util.Log;
 public class Utils {
 
 	public static final String TV_GUIDE = "TVGuide";
+	
+	public static final String AM = "AM";
+	public static final String PM = "PM";
+	public static final String NAN = "NAN";
 
 	public static void log(String tag, String info) {
 		Log.d(TV_GUIDE + "============>" + tag, "-------->" + info);

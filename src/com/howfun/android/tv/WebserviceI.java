@@ -9,13 +9,11 @@ import com.howfun.android.tv.entity.TVstation;
 
 public interface WebserviceI {
 
-//	public List<Area> getAreaList();
-//	public List<TVstation> getStationList(int areaId);
-//	public List<TVchannel> getChannelList(int stationId);
-//	public List<TVprogram> getProgramList(int channelId,String date);
-	
 	public List<Area> getAreaList();
-	public String getStationList(int areaId);
-	public String getChannelList(int stationId);
-	public String getProgramList(int channelId,String date);
+
+	public List<TVstation> getStationList(int areaId);
+
+	public List<TVchannel> getChannelList(int stationId);
+
+	public List<TVprogram> getProgramList(int channelId, String date);
 }

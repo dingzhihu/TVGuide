@@ -2,15 +2,18 @@ package com.howfun.android.tv.entity;
 
 public class TVprogram {
 
-	public static final String AM = "AM";
-	public static final String PM = "PM";
-
 	private String mPlayTime = "";
 	private String mMeridiem = "";
 
 	private String mProgramInfo = "";
 	private String mStationInfo = "";
-
+	
+	public TVprogram(String playTime,String meridiem,String programInfo,String stationInfo){
+		mPlayTime = playTime;
+		mMeridiem = meridiem;
+		mProgramInfo = programInfo;
+		mStationInfo = stationInfo;
+	}
 	public String getPlayTime() {
 		return mPlayTime;
 	}
@@ -41,5 +44,11 @@ public class TVprogram {
 
 	public void setStationInfo(String stationInfo) {
 		this.mStationInfo = stationInfo;
+	}
+
+	public String toString() {
+		return "playTime:" + mPlayTime + ",meridiem:" + mMeridiem
+				+ ",programInfo:" + mProgramInfo + ",stationInfo:"
+				+ mStationInfo;
 	}
 }

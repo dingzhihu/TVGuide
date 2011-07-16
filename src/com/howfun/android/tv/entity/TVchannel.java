@@ -26,4 +26,8 @@ public class TVchannel {
 		this.mChannelName = channelName;
 	}
 
+	public String toString() {
+		return "id:" + mChannelId + ",channelName:" + mChannelName;
+	}
+
 }
