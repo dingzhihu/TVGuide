@@ -14,7 +14,7 @@ public interface WebserviceI {
 //	public List<TVchannel> getChannelList(int stationId);
 //	public List<TVprogram> getProgramList(int channelId,String date);
 	
-	public String getAreaList();
+	public List<Area> getAreaList();
 	public String getStationList(int areaId);
 	public String getChannelList(int stationId);
 	public String getProgramList(int channelId,String date);

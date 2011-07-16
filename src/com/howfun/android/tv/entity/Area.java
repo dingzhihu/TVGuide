@@ -41,4 +41,7 @@ public class Area {
 		this.mAreaZone = areaZone;
 	}
 
+	public String toString(){
+		return "areaId:"+String.valueOf(mAreaId)+",areaName:"+mAreaName+",areaZone:"+mAreaZone;
+	}
 }

@@ -6,6 +6,7 @@ import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.AndroidHttpTransport;
+import org.ksoap2.transport.HttpTransportSE;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -19,11 +20,11 @@ public class MainActivity extends Activity {
 	// WebServiceµÿ÷∑
 //	private static String URL = "http://www.webxml.com.cn/webservices/weatherwebservice.asmx";
 	private static String URL = "http://webservice.webxml.com.cn/webservices/ChinaTVprogramWebService.asmx";
-//	private static final String METHOD_NAME = "getWeatherbyCityName";
+	private static final String METHOD_NAME = "getTVStationString";
 //	private static String SOAP_ACTION = "http://WebXml.com.cn/getWeatherbyCityName";
 	
-	private static final String METHOD_NAME = "getAreaDataSet";
-	private static String SOAP_ACTION = "http://WebXml.com.cn/getAreaDataSet";
+//	private static final String METHOD_NAME = "getAreaDataSet";
+	private static String SOAP_ACTION = "http://WebXml.com.cn/getTVstationString";
 
 	private String weatherToday;
 
@@ -40,7 +41,7 @@ public class MainActivity extends Activity {
 		  okButton.setOnClickListener(new Button.OnClickListener() {  
 		      public void onClick(View v) {  
 //		         showWeather();  
-		    	  Utils.showMessageDlg(MainActivity.this, new WebserviceAdapter().getStationList(1));
+		    	  Utils.showMessageDlg(MainActivity.this, new WebserviceAdapter().getAreaList().toString());
 		      }  
 		  });  
 	}
@@ -58,32 +59,35 @@ public class MainActivity extends Activity {
 			System.out.println("rpc" + rpc);
 			System.out.println("cityName is " + cityName);
 //			rpc.addProperty("theCityName", cityName);
+			rpc.addProperty("theAreaID", 12);
 
-			AndroidHttpTransport ht = new AndroidHttpTransport(URL);
+
+			HttpTransportSE ht = new HttpTransportSE(URL);
+//			AndroidHttpTransport ht = new AndroidHttpTransport(URL);
 			ht.debug = true;
 
 			SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
-					SoapEnvelope.VER11);
+					SoapEnvelope.VER10);
 
 			envelope.bodyOut = rpc;
-			envelope.dotNet = true;
+//			envelope.dotNet = true;
 			envelope.setOutputSoapObject(rpc);
 
 			ht.call(SOAP_ACTION, envelope);
 
 			SoapObject result = (SoapObject) envelope.bodyIn;
-//			detail = (SoapObject) result
-//					.getProperty("getWeatherbyCityNameResult");
-			
 			detail = (SoapObject) result
-			.getProperty("getAreaDataSetResult");
+					.getProperty("getTVstationStringResult");
+//			
+//			detail = (SoapObject) result
+//			.getProperty("getAreaDataSetResult");
 
 			System.out.println("result" + result);
 			System.out.println("detail" + detail);
 //			Toast.makeText(this, detail.toString(),
 //					Toast.LENGTH_LONG).show();
 			System.out.println(detail.toString());
-			Utils.showMessageDlg(this, detail.getProperty(1).toString());
+			Utils.showMessageDlg(this, detail.toString());
 //			parseWeather(detail);
 
 			return;
