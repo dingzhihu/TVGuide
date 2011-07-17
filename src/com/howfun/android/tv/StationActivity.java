@@ -6,6 +6,7 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -55,6 +56,7 @@ public class StationActivity extends Activity {
 		setTitle(R.string.station);
 		setContentView(R.layout.station);
 		mListView = (ListView) findViewById(R.id.station_list);
+		mListView.setCacheColorHint(0);
 		mTextView = (TextView) findViewById(R.id.station_text);
 		
 		setProgressBarIndeterminateVisibility(true);
@@ -121,6 +123,7 @@ public class StationActivity extends Activity {
 				holder = new ViewHolder();
 				holder.text = (TextView) convertView
 						.findViewById(android.R.id.text1);
+				holder.text.setTextColor(Color.BLACK);
 
 				convertView.setTag(holder);
 			} else {

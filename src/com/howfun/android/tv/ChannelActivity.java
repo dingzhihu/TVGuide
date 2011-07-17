@@ -6,6 +6,7 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -56,6 +57,7 @@ public class ChannelActivity extends Activity {
 		setTitle(R.string.channel);
 		this.setContentView(R.layout.channel);
 		mListView = (ListView) findViewById(R.id.channel_list);
+		mListView.setCacheColorHint(0);
 		mTextView = (TextView) findViewById(R.id.channel_text);
 
 		setProgressBarIndeterminateVisibility(true);
@@ -129,6 +131,7 @@ public class ChannelActivity extends Activity {
 				holder = new ViewHolder();
 				holder.text = (TextView) convertView
 						.findViewById(android.R.id.text1);
+				holder.text.setTextColor(Color.BLACK);
 
 				convertView.setTag(holder);
 			} else {

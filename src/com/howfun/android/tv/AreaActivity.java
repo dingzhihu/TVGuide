@@ -5,6 +5,7 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ public class AreaActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.area);
 		ListView list = (ListView) findViewById(R.id.area_list);
+		list.setCacheColorHint(0);
 		DbAdapter dbAdapter = new DbAdapter(this);
 		dbAdapter.open();
 		List<Area> areaList = dbAdapter.getAreaList();
@@ -75,6 +77,7 @@ public class AreaActivity extends Activity {
 				holder = new ViewHolder();
 				holder.text = (TextView) convertView
 						.findViewById(android.R.id.text1);
+				holder.text.setTextColor(Color.BLACK);
 
 				convertView.setTag(holder);
 			} else {

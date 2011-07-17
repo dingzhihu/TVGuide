@@ -3,9 +3,9 @@ package com.howfun.android.tv;
 import java.util.List;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -31,7 +31,7 @@ public class PreferenceActivity extends Activity {
 		setContentView(R.layout.preference);
 		
 		mListView = (ListView) findViewById(R.id.pref_channel_list);
-		
+		mListView.setCacheColorHint(0);
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -117,6 +117,7 @@ public class PreferenceActivity extends Activity {
 				holder = new ViewHolder();
 				holder.text = (TextView) convertView
 						.findViewById(android.R.id.text1);
+				holder.text.setTextColor(Color.BLACK);
 
 				convertView.setTag(holder);
 			} else {

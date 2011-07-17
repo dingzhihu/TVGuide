@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -51,12 +52,14 @@ public class ProgramActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-//		setTitle(R.string.program);
+		// setTitle(R.string.program);
 		setContentView(R.layout.program);
 
 		mListView = (ListView) findViewById(R.id.program_list);
 		mTextView = (TextView) findViewById(R.id.program_text);
 
+		mListView.setSelector(android.R.color.transparent);
+		// mListView.setCacheColorHint(0);
 		setProgressBarIndeterminateVisibility(true);
 		new Thread() {
 			public void run() {
@@ -77,11 +80,9 @@ public class ProgramActivity extends Activity {
 		}.start();
 
 	}
-	
-	
+
 	private void update() {
-		Adapter adapter = new Adapter(this,
-				android.R.layout.simple_list_item_2, mProgramList);
+		Adapter adapter = new Adapter(this, R.layout.program_item, mProgramList);
 		mListView.setAdapter(adapter);
 	}
 
@@ -109,9 +110,11 @@ public class ProgramActivity extends Activity {
 				convertView = mInflater.inflate(mRes, parent, false);
 				holder = new ViewHolder();
 				holder.playTime = (TextView) convertView
-				.findViewById(android.R.id.text1);
+						.findViewById(R.id.program_playtime);
 				holder.programInfo = (TextView) convertView
-						.findViewById(android.R.id.text2);
+						.findViewById(R.id.program_info);
+				holder.playTime.setBackgroundColor(0xff808080);
+				holder.programInfo.setBackgroundColor(0xff404040);
 
 				convertView.setTag(holder);
 			} else {
