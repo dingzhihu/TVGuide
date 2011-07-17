@@ -2,7 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical" android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
-	<TextView android:layout_width="fill_parent"
-		android:layout_height="wrap_content" android:text="splash" />
+	<TextView android:id="@+id/splash_text" 
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent" android:text="@string/app_name" 
+		android:textSize="33sp"
+		/>
+		
+		<TextView android:id="@+id/splash_text2"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:textSize="22sp" 
+		android:text="@string/msg_network_error"/>
 
 </LinearLayout>

@@ -3,36 +3,86 @@ package com.howfun.android.tv;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.howfun.android.tv.entity.TVchannel;
-import com.howfun.android.tv.entity.TVprogram;
-
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.howfun.android.tv.entity.TVchannel;
+import com.howfun.android.tv.entity.TVprogram;
+import com.howfun.android.webservice.WebserviceAdapter;
+import com.howfun.android.webservice.WebserviceI;
+
 public class ProgramActivity extends Activity {
+
+	private Handler mHandler = new Handler() {
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case Utils.MSG_NETWORK_ERROR:
+				setProgressBarIndeterminateVisibility(false);
+				mTextView.setVisibility(View.VISIBLE);
+				// TODO hint of network error
+				break;
+			case Utils.MSG_GUIDE_UPDATED:
+				setProgressBarIndeterminateVisibility(false);
+				mListView.setVisibility(View.VISIBLE);
+				update();
+				break;
+			default:
+				break;
+			}
+		}
+	};
+
+	private WebserviceI mWebservice = new WebserviceAdapter();
+	List<TVprogram> mProgramList = new ArrayList<TVprogram>();
+	private ListView mListView = null;
+	private TextView mTextView = null;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+//		setTitle(R.string.program);
 		setContentView(R.layout.program);
 
-		ListView list = (ListView) findViewById(R.id.program_list);
+		mListView = (ListView) findViewById(R.id.program_list);
+		mTextView = (TextView) findViewById(R.id.program_text);
 
-		WebserviceI webservice = new WebserviceAdapter();
-		List<TVprogram> programList = new ArrayList<TVprogram>();
-		int channelId = getIntent().getIntExtra(Utils.CHANNEL_ID, -1000);
-		System.out.println("channel id:"+channelId);
-		// TODO new thread
-		programList = webservice.getProgramList(channelId, "");
+		setProgressBarIndeterminateVisibility(true);
+		new Thread() {
+			public void run() {
+				int channelId = getIntent()
+						.getIntExtra(Utils.CHANNEL_ID, -1000);
+				String date = getIntent().getStringExtra(Utils.PROGRAM_DATE);
+				mProgramList = mWebservice.getProgramList(channelId, date);
+				if (mProgramList != null) {
+					if (mProgramList.size() == 0) {
+						mHandler.sendEmptyMessage(Utils.MSG_NETWORK_ERROR);
+					} else {
+						mHandler.sendEmptyMessage(Utils.MSG_GUIDE_UPDATED);
+					}
+				} else {
+					mHandler.sendEmptyMessage(Utils.MSG_NETWORK_ERROR);
+				}
+			}
+		}.start();
+
+	}
+	
+	
+	private void update() {
 		Adapter adapter = new Adapter(this,
-				android.R.layout.simple_list_item_1, programList);
-		list.setAdapter(adapter);
+				android.R.layout.simple_list_item_2, mProgramList);
+		mListView.setAdapter(adapter);
 	}
 
 	private static class Adapter extends ArrayAdapter<TVprogram> {
@@ -58,21 +108,25 @@ public class ProgramActivity extends Activity {
 			if (convertView == null) {
 				convertView = mInflater.inflate(mRes, parent, false);
 				holder = new ViewHolder();
-				holder.text = (TextView) convertView
-						.findViewById(android.R.id.text1);
+				holder.playTime = (TextView) convertView
+				.findViewById(android.R.id.text1);
+				holder.programInfo = (TextView) convertView
+						.findViewById(android.R.id.text2);
 
 				convertView.setTag(holder);
 			} else {
 				holder = (ViewHolder) convertView.getTag();
 			}
 
-			holder.text.setText(item.getProgramInfo());
+			holder.playTime.setText(item.getPlayTime());
+			holder.programInfo.setText(item.getProgramInfo());
 
 			return convertView;
 		}
 
 		private static class ViewHolder {
-			TextView text;
+			TextView playTime;
+			TextView programInfo;
 		}
 
 	}

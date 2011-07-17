@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hello">Hello World, MainActivity!</string>
-    <string name="app_name">TVProgram</string>
+    <string name="app_name">电视节目预告</string>
+    <string name="tab_pref">感兴趣的频道</string>
+    <string name="tab_guide">节目单</string>
+    
+    <string name="station">电视台</string>
+    <string name="channel">频道</string>
+    <string name="program">节目单</string>
+    
+    <string name="today">今天</string>
+    <string name="tomorrow ">明天</string>
+    <string name="day_after_tomorrow">后天</string>
+    
+    <string name="msg_network_error">获取数据失败</string>
+    <string name="msg_pref_channel_empty">感兴趣的频道为空</string>
+    
+    <string name="menu_clear">清除频道浏览记录</string>
+    <string name="menu_about">关于</string>
+    
+    <string name="ok">确定</string>
+    <string name="about">电视节目预告，欢迎使用！</string>
 </resources>

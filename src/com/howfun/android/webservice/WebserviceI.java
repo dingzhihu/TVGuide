@@ -1,4 +1,4 @@
-package com.howfun.android.tv;
+package com.howfun.android.webservice;
 
 import java.util.List;
 

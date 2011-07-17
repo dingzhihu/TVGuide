@@ -1,4 +1,4 @@
-package com.howfun.android.tv;
+package com.howfun.android.webservice;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +8,7 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
+import com.howfun.android.tv.Utils;
 import com.howfun.android.tv.entity.Area;
 import com.howfun.android.tv.entity.TVchannel;
 import com.howfun.android.tv.entity.TVprogram;

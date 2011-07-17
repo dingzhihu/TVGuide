@@ -1,6 +1,7 @@
 package com.howfun.android.tv;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import android.content.ContentValues;
@@ -33,12 +34,13 @@ public class DbAdapter {
 
 	private static final String CREATE_TABLE_AREAS = "CREATE TABLE "
 			+ TABLE_AREAS + "(" + KEY_AREA_ID
-			+ " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_AREA_NAME
+			+ " INTEGER PRIMARY KEY," + KEY_AREA_NAME
 			+ " TEXT NOT NULL," + KEY_AREA_ZONE + " TEXT" + ");";
 
 	private static final String CREATE_TABLE_CHANNELS_PREF = "CREATE TABLE "
-			+ TABLE_CHANNELS_PREF + "(" + KEY_CHANNEL_ID
-			+ " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_CHANNEL_NAME
+			+ TABLE_CHANNELS_PREF + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+			+ KEY_CHANNEL_ID
+			+ " INTEGER NOT NULL," + KEY_CHANNEL_NAME
 			+ " TEXT NOT NULL" + ");";
 
 	private static final String DROP_TABLE_AREAS = "DROP TABLE IF EXISTS "
@@ -76,11 +78,34 @@ public class DbAdapter {
 	}
 
 	public void addChannel(TVchannel channel) {
+		if(channel == null){
+			return ;
+		}
+		int channelId = channel.getChannelId();
+		//del channel with the same id
+		delPrefChannel(channelId);
 		ContentValues values = new ContentValues();
 		values.put(KEY_CHANNEL_ID, channel.getChannelId());
 		values.put(KEY_CHANNEL_NAME, channel.getChannelName());
-
-		mDb.insert(CREATE_TABLE_CHANNELS_PREF, null, values);
+		
+		mDb.insert(TABLE_CHANNELS_PREF, null, values);
+	}
+	
+	private boolean prefChannelExists(int channelId){
+		boolean flag = false;
+		List<TVchannel> prefChannelList = getPrefChannelList();
+		if(prefChannelList != null){
+			Iterator<TVchannel> it = prefChannelList.iterator();
+			while(it.hasNext()){
+				TVchannel channel = it.next();
+				int id = channel.getChannelId();
+				if(id == channelId){
+					flag = true;
+					return flag;
+				}
+			}
+		}
+		return true;
 	}
 
 	public Cursor getAllAreas() {
@@ -114,17 +139,42 @@ public class DbAdapter {
 	public Cursor getAllPrefChannels() {
 		Cursor cur = null;
 		cur = mDb
-				.query(TABLE_CHANNELS_PREF, null, null, null, null, null, null);
+				.query(TABLE_CHANNELS_PREF, null, null, null, null, null, KEY_ID + " DESC");
 		if (cur != null) {
 			cur.moveToFirst();
 		}
 		return cur;
 	}
+	
+	public List<TVchannel> getPrefChannelList(){
+		List<TVchannel> prefChannelList = new ArrayList<TVchannel>();
+		Cursor c = getAllPrefChannels();
+		if(c != null && c.getCount() > 0){
+			do{
+				int id = c.getInt(c.getColumnIndex(KEY_CHANNEL_ID));
+				String channelName = c.getString(c.getColumnIndex(KEY_CHANNEL_NAME));
+				TVchannel channel = new TVchannel(id, channelName);
+				prefChannelList.add(channel);
+			}while(c.moveToNext());
+		}
+		if(c != null){
+			c.close();
+		}
+		return prefChannelList;
+	}
+	
 
 	public boolean delPrefChannel(int channelId) {
 		boolean flag = false;
-		flag = mDb.delete(CREATE_TABLE_CHANNELS_PREF, KEY_CHANNEL_ID + "="
+		flag = mDb.delete(TABLE_CHANNELS_PREF, KEY_CHANNEL_ID + "="
 				+ channelId, null) > 0;
+
+		return flag;
+	}
+	
+	public boolean delPrefChannels(){
+		boolean flag = false;
+		flag = mDb.delete(TABLE_CHANNELS_PREF, null, null) > 0;
 
 		return flag;
 	}

@@ -4,6 +4,14 @@
 	android:layout_height="fill_parent">
 	<ListView android:id="@+id/station_list"
 		android:layout_width="fill_parent"
-		android:layout_height="fill_parent" />
+		android:layout_height="fill_parent" 
+		android:visibility="gone"/>
+		
+		<TextView android:id="@+id/station_text"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:text="@string/msg_network_error"
+		android:textSize="22sp" 
+		android:visibility="gone"/>
 
 </LinearLayout>
