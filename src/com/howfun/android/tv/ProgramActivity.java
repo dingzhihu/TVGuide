@@ -5,7 +5,6 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -14,10 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.howfun.android.tv.entity.TVchannel;
 import com.howfun.android.tv.entity.TVprogram;
 import com.howfun.android.webservice.WebserviceAdapter;
 import com.howfun.android.webservice.WebserviceI;
@@ -112,10 +111,7 @@ public class ProgramActivity extends Activity {
                   .findViewById(R.id.program_playtime);
             holder.programInfo = (TextView) convertView
                   .findViewById(R.id.program_info);
-            holder.offset = (TextView) convertView
-                  .findViewById(R.id.program_offset);
-            // holder.playTime.setBackgroundColor(0xff808080);
-            // holder.programInfo.setBackgroundColor(0xff404040);
+            holder.offset = (ImageView)convertView.findViewById(R.id.program_offset);
 
             convertView.setTag(holder);
          } else {
@@ -131,7 +127,7 @@ public class ProgramActivity extends Activity {
       private static class ViewHolder {
          TextView playTime;
          TextView programInfo;
-         TextView offset;
+         ImageView offset;
       }
 
    }

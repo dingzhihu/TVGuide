@@ -17,9 +17,9 @@
 		android:padding="5dp"
 		android:textSize="20sp" 
 		/>
-		<TextView android:id="@+id/program_offset"
+		<ImageView android:id="@+id/program_offset"
 			android:layout_width="fill_parent"
-			android:layout_height="10dp"
-			android:background="#808080" />
+			android:layout_height="wrap_content"
+			android:background="@drawable/line_gray" />
 
 </LinearLayout>
