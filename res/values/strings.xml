@@ -20,5 +20,5 @@
     <string name="menu_about">关于</string>
     
     <string name="ok">确定</string>
-    <string name="about">电视节目预告，欢迎使用！</string>
+    <string name="about">电视节目预告，欢迎使用！\n v1.0.0 好风工作室 (2011)</string>
 </resources>
