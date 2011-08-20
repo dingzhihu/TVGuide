@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.howfun.android.tv.entity.Area;
+import com.sosceo.android.ads.AdView;
 
 public class AreaActivity extends Activity {
 	@Override
@@ -46,8 +47,14 @@ public class AreaActivity extends Activity {
 			}
 		});
 
+		sosceo();
 	}
 
+   private void sosceo() {
+      AdView mAdView = (AdView) findViewById(R.id.ad);
+      mAdView.showAgreement();
+ 
+   }
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 
 	}

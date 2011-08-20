@@ -19,14 +19,14 @@ public class MainActivity extends TabActivity {
 		Drawable prefDrawable = getResources().getDrawable(R.drawable.pref);
 		Drawable guideDrawable = getResources().getDrawable(R.drawable.guide);
 		final TabHost tabHost = getTabHost();
-		tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator(prefStr,
-				prefDrawable).setContent(
-				new Intent(this, PreferenceActivity.class)));
 
 		tabHost
-				.addTab(tabHost.newTabSpec("tab2").setIndicator(guideStr,
+				.addTab(tabHost.newTabSpec("tab1").setIndicator(guideStr,
 						guideDrawable).setContent(
 						new Intent(this, AreaActivity.class)));
+		tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator(prefStr,
+				prefDrawable).setContent(
+				new Intent(this, PreferenceActivity.class)));
 	}
 
 	@Override

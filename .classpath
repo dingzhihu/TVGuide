@@ -4,5 +4,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry exported="true" kind="lib" path="lib/ksoap2-android-assembly-2.5.2-jar-with-dependencies.jar"/>
+	<classpathentry kind="lib" path="/home/herbert/Desktop/Ad_sdk/sosceo_ch/╩╓╩╣┐═ Android ╣у╕цjar░№/sosceo_ad-ch.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
